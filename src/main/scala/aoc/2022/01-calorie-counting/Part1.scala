@@ -5,7 +5,8 @@ import problemutils.*, extensions.*
 object Part1 extends Problem(1, 2022)(1)(24000):
   def name = "Calorie Counting - Part 1"
   def solve(data: List[String]) =
-  /*  var maxFound = 0
+  /*  
+    var maxFound = 0
     var current = 0
 
     for line <- data do
@@ -19,4 +20,5 @@ object Part1 extends Problem(1, 2022)(1)(24000):
 
     maxFound
   */
-  return parse(data).max
+  
+  parse(data).max
