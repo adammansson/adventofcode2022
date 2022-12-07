@@ -10,10 +10,6 @@ object Part2 extends Problem(7, 2022)(2)(24933642):
   def name = "No Space Left On Device - Part 2"
   def solve(data: List[String]): Int =
     val dirSizes = parse(data)
-    val total = 70000000
-    val neededForUpdate = 30000000
-    val used = dirSizes("/").values.sum
-    val unused = total - used
-    val mustBeDeleted = neededForUpdate - unused
-    
+    val mustBeDeleted = 30000000 - 70000000 + dirSizes("/").values.sum
+
     dirSizes.map((_, f) => f.values.sum).filter(i => i >= mustBeDeleted).toVector.sorted.head

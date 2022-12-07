@@ -8,20 +8,18 @@ def parse(data: List[String]): Map[String, Map[String, Int]] =
   val dirs = mutable.Stack[String]()
   val dirSizes = mutable.Map[String, mutable.Map[String, Int]]()
 
-  for line <- data do
-    val split = line.split(" ").toVector
-
-    if split(0) == "$" then
-      if  split(1) == "cd" then
-        if split(2) == ".." then
+  for line <- data.map(_.split(" ").toVector) do
+    if line(0) == "$" then
+      if  line(1) == "cd" then
+        if line(2) == ".." then
           dirs.pop()
         else
-          dirs.push(split(2))
+          dirs.push(line(2))
 
     else
-      if split(0) != ("dir") then
-        val fSize = split(0).toInt
-        val fName = split(1)
+      if line(0) != ("dir") then
+        val fSize = line(0).toInt
+        val fName = line(1)
         val filePath = fName + "/" + dirs.mkString("/")
 
         for i <- dirs.indices do
