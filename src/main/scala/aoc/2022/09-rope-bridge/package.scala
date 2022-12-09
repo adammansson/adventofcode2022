@@ -15,27 +15,10 @@ case class Pos(x: Int, y: Int):
   def followed(other: Pos): Pos =
     if isTouching(other) then
       Pos(x, y)
-    else if x == other.x then
-      if other.y > y then
-        Pos(x, y + 1)
-      else
-        Pos(x, y - 1)
-    else if y == other.y then
-      if other.x > x then
-        Pos(x + 1, y)
-      else
-        Pos(x - 1, y)
     else
-      val dx = other.x - x
-      val dy = other.y - y
-      if dx > 0 && dy > 0 then
-        Pos(x + 1, y + 1)
-      else if dx > 0 && dy < 0 then
-        Pos(x + 1, y - 1)
-      else if dx < 0 && dy > 0 then
-        Pos(x - 1, y + 1)
-      else
-        Pos(x - 1, y - 1)
+      val mx = if (other.x == x) 0 else if (other.x > x) 1 else -1
+      val my = if (other.y == y) 0 else if (other.y > y) 1 else -1
+      Pos(x + mx, y + my)
 
 def parse(data: List[String]): List[(String, Int)] =
   for line <- data yield

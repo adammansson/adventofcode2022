@@ -8,14 +8,11 @@ import scala.collection.mutable
 object Part1 extends Problem(9, 2022)(1)(13):
   def name = "Rope Bridge - Part 1"
   def solve(data: List[String]): Int =
-    var h = Pos(0, 0)
-    var t = Pos(0, 0)
-    val visited = mutable.Set[Pos]()
-
-    for line <- parse(data) do
-      for _ <- 0 until line(1) do
-        h = h.moved(line(0))
-        t = t.followed(h)
-        visited.add(t)
-
-    visited.size
+    val rope = Array.fill(2)(Pos(0, 0))
+    parse(data).flatMap((s, i) => {
+      (0 until i).map(_ => {
+        rope(0) = rope(0).moved(s)
+        rope.indices.drop(1).foreach(j => rope(j) = rope(j).followed(rope(j - 1)))
+        rope.last
+      })
+    }).distinct.size
